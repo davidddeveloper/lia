@@ -1,0 +1,125 @@
+:root {
+  --linkedin-blue: #0a66c2;
+  --linkedin-light-blue: #e7f3ff;
+  --linkedin-dark: #191919;
+  --linkedin-gray: #666666;
+  --linkedin-light-gray: #f3f2ef;
+  --linkedin-border: #e0e0e0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+  color: var(--linkedin-dark);
+  background-color: white;
+  width: 320px;
+  overflow-x: hidden;
+}
+
+.container {
+  padding: 16px;
+}
+
+header {
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--linkedin-border);
+  padding-bottom: 12px;
+}
+
+h1 {
+  font-size: 18px;
+  color: var(--linkedin-blue);
+}
+
+h2 {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.settings,
+.features {
+  margin-bottom: 20px;
+}
+
+.setting-group {
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+select,
+input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--linkedin-border);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+select:focus,
+input:focus {
+  outline: none;
+  border-color: var(--linkedin-blue);
+}
+
+.note {
+  font-size: 12px;
+  color: var(--linkedin-gray);
+  margin-top: 4px;
+}
+
+.features ul {
+  list-style: none;
+}
+
+.features li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.features input[type="checkbox"] {
+  width: auto;
+  margin-right: 8px;
+}
+
+.primary-button {
+  background-color: var(--linkedin-blue);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s;
+}
+
+.primary-button:hover {
+  background-color: #004182;
+}
+
+footer {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--linkedin-border);
+  text-align: center;
+}
+
+footer p {
+  font-size: 12px;
+  color: var(--linkedin-gray);
+}
+

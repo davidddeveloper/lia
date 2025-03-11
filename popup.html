@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn AI Assistant</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>LinkedIn AI Assistant</h1>
+    </header>
+    
+    <div class="settings">
+      <h2>Settings</h2>
+      
+      <div class="setting-group">
+        <label for="tone">Writing Tone:</label>
+        <select id="tone">
+          <option value="professional">Professional</option>
+          <option value="casual">Casual</option>
+          <option value="enthusiastic">Enthusiastic</option>
+          <option value="informative">Informative</option>
+          <option value="thoughtful">Thoughtful</option>
+        </select>
+      </div>
+      
+      <div class="setting-group">
+        <label for="industry">Your Industry:</label>
+        <select id="industry">
+          <option value="technology">Technology</option>
+          <option value="finance">Finance</option>
+          <option value="healthcare">Healthcare</option>
+          <option value="education">Education</option>
+          <option value="marketing">Marketing</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      
+      <div class="setting-group">
+        <label for="api-key">OpenAI API Key:</label>
+        <input type="password" id="api-key" placeholder="Enter your API key">
+        <p class="note">Your API key is stored locally and never shared.</p>
+      </div>
+    </div>
+    
+    <div class="features">
+      <h2>Features</h2>
+      <ul>
+        <li>
+          <input type="checkbox" id="post-assist" checked>
+          <label for="post-assist">Post Writing Assistant</label>
+        </li>
+        <li>
+          <input type="checkbox" id="comment-assist" checked>
+          <label for="comment-assist">Comment Reply Suggestions</label>
+        </li>
+        <li>
+          <input type="checkbox" id="post-improve" checked>
+          <label for="post-improve">Post Improvement Suggestions</label>
+        </li>
+      </ul>
+    </div>
+    
+    <button id="save-settings" class="primary-button">Save Settings</button>
+    
+    <footer>
+      <p>LinkedIn AI Assistant v1.0.0</p>
+    </footer>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
+

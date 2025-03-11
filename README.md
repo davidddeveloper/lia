@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LinkedIn AI Assistant
 
-## Getting Started
+A Chrome extension that helps you create better LinkedIn posts and comments with AI assistance.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Post Writing Assistant**: Generate professional LinkedIn posts with just a click
+- **Comment Reply Suggestions**: Get AI-powered suggestions for replying to comments
+- **Post Improvement**: Enhance your draft posts with AI suggestions
+- **Customizable**: Set your preferred tone, industry, and other preferences
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### From Source (Developer Mode)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Download or clone this repository
+2. Open Chrome and navigate to `chrome://extensions/`
+3. Enable "Developer mode" in the top-right corner
+4. Click "Load unpacked" and select the extension folder
+5. The LinkedIn AI Assistant icon should appear in your browser toolbar
 
-## Learn More
+## Setup
 
-To learn more about Next.js, take a look at the following resources:
+1. Click the extension icon in your browser toolbar
+2. Enter your OpenAI API key in the settings
+3. Customize your preferences (tone, industry, etc.)
+4. Click "Save Settings"
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Creating Posts
 
-## Deploy on Vercel
+1. Go to LinkedIn and start creating a post
+2. Click the "AI Assist" button that appears in the post editor
+3. Choose from the AI-generated suggestions or regenerate for more options
+4. The selected suggestion will be inserted into your post
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Replying to Comments
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Navigate to a post with comments
+2. Click in the comment reply box
+3. Click the "AI Reply" button
+4. Choose from the AI-generated reply suggestions
+5. The selected reply will be inserted into the comment box
+
+## Privacy
+
+- Your OpenAI API key is stored locally in your browser and is never sent to our servers
+- The extension only activates on LinkedIn domains
+- Content is processed through the OpenAI API according to their privacy policy
+
+## Requirements
+
+- Google Chrome browser (version 88 or later)
+- OpenAI API key
+
+## License
+
+MIT License
+
+## Support
+
+For issues, feature requests, or questions, please open an issue on the GitHub repository.
+

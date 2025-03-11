@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn AI Assistant - Demo</title>
+  <style>
+    :root {
+      --linkedin-blue: #0a66c2;
+      --linkedin-light-blue: #e7f3ff;
+      --linkedin-dark: #191919;
+      --linkedin-gray: #666666;
+      --linkedin-light-gray: #f3f2ef;
+      --linkedin-border: #e0e0e0;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: var(--linkedin-dark);
+      background-color: var(--linkedin-light-gray);
+      line-height: 1.5;
+    }
+    
+    header {
+      background-color: white;
+      border-bottom: 1px solid var(--linkedin-border);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1128px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .logo img {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .logo h1 {
+      font-size: 20px;
+      color: var(--linkedin-blue);
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 24px;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: var(--linkedin-dark);
+      font-weight: 500;
+      padding: 8px 0;
+      position: relative;
+    }
+    
+    nav a:hover {
+      color: var(--linkedin-blue);
+    }
+    
+    nav a.active {
+      color: var(--linkedin-blue);
+    }
+    
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--linkedin-blue);
+    }
+    
+    main {
+      max-width: 1128px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    
+    .hero {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+      padding: 40px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    
+    .hero h2 {
+      font-size: 32px;
+      margin-bottom: 16px;
+      color: var(--linkedin-dark);
+    }
+    
+    .hero p {
+      font-size: 18px;
+      color: var(--linkedin-gray);
+      max-width: 700px;
+      margin: 0 auto 24px;
+    }
+    
+    .cta-button {
+      background-color: var(--linkedin-blue);
+      color: white;
+      border: none;
+      border-radius: 24px;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .cta-button:hover {
+      background-color: #004182;
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    
+    .feature-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+      padding: 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background-color: var(--linkedin-light-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    
+    .feature-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--linkedin-blue);
+    }
+    
+    .feature-card h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: var(--linkedin-dark);
+    }
+    
+    .feature-card p {
+      color: var(--linkedin-gray);
+      font-size: 14px;
+    }
+    
+    .demo-section {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+      padding: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .demo-section h2 {
+      font-size: 24px;
+      margin-bottom: 24px;
+      color: var(--linkedin-dark);
+      text-align: center;
+    }
+    
+    .demo-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--linkedin-border);
+      margin-bottom: 24px;
+    }
+    
+    .demo-tab {
+      padding: 12px 24px;
+      cursor: pointer;
+      font-weight: 500;
+      color: var(--linkedin-gray);
+      border-bottom: 2px solid transparent;
+    }
+    
+    .demo-tab.active {
+      color: var(--linkedin-blue);
+      border-bottom-color: var(--linkedin-blue);
+    }
+    
+    .demo-content {
+      display: none;
+    }
+    
+    .demo-content.active {
+      display: block;
+    }
+    
+    .linkedin-post {
+      border: 1px solid var(--linkedin-border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    
+    .post-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .post-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: #ddd;
+      margin-right: 12px;
+      overflow: hidden;
+    }
+    
+    .post-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .post-author h4 {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    
+    .post-author p {
+      font-size: 14px;
+      color: var(--linkedin-gray);
+    }
+    
+    .post-content {
+      margin-bottom: 16px;
+    }
+    
+    .post-actions {
+      display: flex;
+      border-top: 1px solid var(--linkedin-border);
+      padding-top: 8px;
+    }
+    
+    .post-action {
+      display: flex;
+      align-items: center;
+      margin-right: 16px;
+      color: var(--linkedin-gray);
+      font-size: 14px;
+      cursor: pointer;
+    }
+    
+    .post-action svg {
+      margin-right: 4px;
+      width: 18px;
+      height: 18px;
+    }
+    
+    .linkedin-ai-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--linkedin-blue);
+      color: white;
+      border: none;
+      border-radius: 16px;
+      padding: 6px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 8px 0;
+      transition: background-color 0.2s;
+    }
+    
+    .linkedin-ai-button svg {
+      margin-right: 6px;
+    }
+    
+    .linkedin-ai-suggestions {
+      background-color: var(--linkedin-light-gray);
+      border: 1px solid var(--linkedin-border);
+      border-radius: 8px;
+      padding: 12px;
+      margin: 8px 0;
+    }
+    
+    .linkedin-ai-suggestions h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: var(--linkedin-blue);
+    }
+    
+    .linkedin-ai-suggestion {
+      background-color: white;
+      border: 1px solid var(--linkedin-border);
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .linkedin-ai-suggestion:hover {
+      background-color: var(--linkedin-light-blue);
+    }
+    
+    .linkedin-ai-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+    
+    .linkedin-ai-actions button {
+      background: none;
+      border: none;
+      color: var(--linkedin-blue);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 12px;
+    }
+    
+    .testimonials {
+      margin-bottom: 40px;
+    }
+    
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    
+    .testimonial-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+      padding: 24px;
+    }
+    
+    .testimonial-content {
+      font-style: italic;
+      margin-bottom: 16px;
+      color: var(--linkedin-gray);
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+    }
+    
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #ddd;
+      margin-right: 12px;
+      overflow: hidden;
+    }
+    
+    .testimonial-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .testimonial-info h4 {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    
+    .testimonial-info p {
+      font-size: 12px;
+      color: var(--linkedin-gray);
+    }
+    
+    .faq-section {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+      padding: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .faq-section h2 {
+      font-size: 24px;
+      margin-bottom: 24px;
+      color: var(--linkedin-dark);
+      text-align: center;
+    }
+    
+    .faq-item {
+      border-bottom: 1px solid var(--linkedin-border);
+      padding: 16px 0;
+    }
+    
+    .faq-question {
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .faq-question svg {
+      transition: transform 0.3s;
+    }
+    
+    .faq-item.active .faq-question svg {
+      transform: rotate(180deg);
+    }
+    
+    .faq-answer {
+      margin-top: 12px;
+      color: var(--linkedin-gray);
+      display: none;
+    }
+    
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+    
+    .cta-section {
+      text-align: center;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+      padding: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .cta-section h2 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      color: var(--linkedin-dark);
+    }
+    
+    .cta-section p {
+      font-size: 16px;
+      color: var(--linkedin-gray);
+      max-width: 600px;
+      margin: 0 auto 24px;
+    }
+    
+    footer {
+      background-color: white;
+      border-top: 1px solid var(--linkedin-border);
+      padding: 40px 0;
+    }
+    
+    .footer-container {
+      max-width: 1128px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    
+    .footer-logo img {
+      width: 32px;
+      height: 32px;
+      margin-right: 8px;
+    }
+    
+    .footer-logo h3 {
+      font-size: 18px;
+      color: var(--linkedin-blue);
+    }
+    
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+    
+    .footer-column h4 {
+      font-size: 14px;
+      margin-bottom: 16px;
+      color: var(--linkedin-dark);
+    }
+    
+    .footer-column ul {
+      list-style: none;
+    }
+    
+    .footer-column li {
+      margin-bottom: 8px;
+    }
+    
+    .footer-column a {
+      text-decoration: none;
+      color: var(--linkedin-gray);
+      font-size: 14px;
+    }
+    
+    .footer-column a:hover {
+      color: var(--linkedin-blue);
+    }
+    
+    .footer-bottom {
+      width: 100%;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--linkedin-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--linkedin-gray);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 16px;
+    }
+    
+    .social-link {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--linkedin-light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+    }
+    
+    .social-link:hover {
+      background-color: var(--linkedin-light-blue);
+    }
+    
+    .social-link svg {
+      width: 16px;
+      height: 16px;
+      color: var(--linkedin-blue);
+    }
+    
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 16px;
+      }
+      
+      .features {
+        grid-template-columns: 1fr;
+      }
+      
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-links {
+        flex-direction: column;
+        gap: 24px;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <img src="icons/icon.svg" alt="LinkedIn AI Assistant Logo">
+        <h1>LinkedIn AI Assistant</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#features" class="active">Features</a></li>
+          <li><a href="#demo">Demo</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="installation-guide.html">Installation</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <main>
+    <section class="hero">
+      <h2>Enhance Your LinkedIn Presence with AI</h2>
+      <p>Create engaging posts, craft thoughtful replies, and improve your content with the power of artificial intelligence.</p>
+      <button class="cta-button">Download Extension</button>
+    </section>
+    
+    <section id="features" class="features">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M5 12h14"></path>
+          </svg>
+        </div>
+        <h3>Post Creation Assistant</h3>
+        <p>Generate professional, engaging LinkedIn posts with just a click. Choose from multiple AI-generated suggestions tailored to your industry and tone preferences.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </div>
+        <h3>Comment Reply Suggestions</h3>
+        <p>Never struggle with comment replies again. Get AI-powered suggestions that are contextually relevant and maintain your professional voice.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <h3>Post Improvement Analysis</h3>
+        <p>Analyze your existing posts and get AI-powered suggestions to improve engagement, clarity, and professional impact.</p>
+      </div>
+    </section>
+    
+    <section id="demo" class="demo-section">
+      <h2>See the LinkedIn AI Assistant in Action</h2>
+      
+      <div class="demo-tabs">
+        <div class="demo-tab active" data-tab="post-creation">Post Creation</div>
+        <div class="demo-tab" data-tab="comment-reply">Comment Reply</div>
+        <div class="demo-tab" data-tab="post-improvement">Post Improvement</div>
+      </div>
+      
+      <div class="demo-content active" id="post-creation">
+        <div class="linkedin-post">
+          <div class="post-header">
+            <div class="post-avatar">
+              <img src="https://randomuser.me/api/portraits/women/42.jpg" alt="User Avatar">
+            </div>
+            <div class="post-author">
+              <h4>Sarah Johnson</h4>
+              <p>Marketing Director at TechCorp</p>
+            </div>
+          </div>
+          
+          <div class="post-content">
+            <p>Working on a new marketing strategy for Q3...</p>
+            <textarea placeholder="What do you want to talk about?" rows="4" style="width: 100%; margin-top: 12px; padding: 8px; border: 1px solid #e0e0e0; border-radius: 4px;"></textarea>
+          </div>
+          
+          <button class="linkedin-ai-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10Zm0 12.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/>
+            </svg>
+            AI Assist
+          </button>
+          
+          <div class="linkedin-ai-suggestions">
+            <h3>AI Post Suggestions</h3>
+            <div class="linkedin-ai-suggestion">
+              Excited to share that we're developing our Q3 marketing strategy at TechCorp! 🚀 We're focusing on data-driven approaches to better understand customer needs and deliver more personalized experiences. What marketing trends are you incorporating into your Q3 planning? #MarketingStrategy #DataDrivenMarketing #Q3Planning
+            </div>
+            <div class="linkedin-ai-suggestion">
+              Q3 planning is in full swing at TechCorp! 📊 Our marketing team is exploring innovative ways to blend traditional and digital channels for maximum impact. I'd love to hear what's working for other marketing professionals - drop your insights below! #MarketingInnovation #Q3Strategy #DigitalMarketing
+            </div>
+            <div class="linkedin-ai-suggestion">
+              The marketing landscape is constantly evolving, and our Q3 strategy at TechCorp reflects this reality. We're investing in content that educates and builds community rather than just promotes. What's one marketing approach you're leaving behind in Q2? #MarketingEvolution #ContentStrategy #ThoughtLeadership
+            </div>
+            <div class="linkedin-ai-actions">
+              <button class="linkedin-ai-dismiss">Dismiss</button>
+              <button class="linkedin-ai-regenerate">Regenerate</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="demo-content" id="comment-reply">
+        <div class="linkedin-post">
+          <div class="post-header">
+            <div class="post-avatar">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar">
+            </div>
+            <div class="post-author">
+              <h4>Michael Chen</h4>
+              <p>Software Engineer at DevTech</p>
+            </div>
+          </div>
+          
+          <div class="post-content">
+            <p>Just published my article on microservices architecture patterns. Check it out and let me know your thoughts!</p>
+          </div>
+          
+          <div class="post-actions">
+            <div class="post-action">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+              </svg>
+              Like
+            </div>
+            <div class="post-action">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              Comment
+            </div>
+            <div class="post-action">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+              </svg>
+              Share
+            </div>
+          </div>
+          
+          <div style="margin-top: 16px; border-top: 1px solid #e0e0e0; padding-top: 16px;">
+            <div style="display: flex; margin-bottom: 16px;">
+              <div class="post-avatar" style="width: 32px; height: 32px;">
+                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Commenter Avatar">
+              </div>
+              <div style="margin-left: 8px;">
+                <h4 style="font-size: 14px;">Emily Rodriguez</h4>
+                <p style="font-size: 14px;">Great article! I'm curious about how you handle service discovery in your microservices architecture?</p>
+              </div>
+            </div>
+            
+            <div style="display: flex; align-items: flex-start;">
+              <div class="post-avatar" style="width: 32px; height: 32px;">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar">
+              </div>
+              <div style="margin-left: 8px; flex-grow: 1;">
+                <textarea placeholder="Write a reply..." rows="2" style="width: 100%; padding: 8px; border: 1px solid #e0e0e0; border-radius: 4px;"></textarea>
+                <button class="linkedin-ai-button" style="margin-top: 8px; font-size: 12px; padding: 4px 8px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10Zm0 12.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/>
+                  </svg>
+                  AI Reply
+                </button>
+              </div>
+            </div>
+            
+            <div class="linkedin-ai-suggestions">
+              <h3>AI Reply Suggestions</h3>
+              <div class="linkedin-ai-suggestion">
+                Thanks for the question, Emily! For service discovery, we're using a combination of Consul for registry and health monitoring, along with client-side load balancing. This has worked well for our scale, though we're also exploring service mesh solutions like Istio for more complex scenarios. Have you implemented service discovery in your architecture?
+              </div>
+              <div class="linkedin-ai-suggestion">
+                Great question, Emily! We've implemented a centralized service registry with Consul that handles both discovery and health checks. Each service registers itself on startup and deregisters on shutdown. For larger clusters, we've found this approach scales better than hardcoded configurations. What approach are you currently using?
+              </div>
+              <div class="linkedin-ai-suggestion">
+                Thanks for reading the article, Emily! Service discovery is crucial in our architecture - we're using a hybrid approach with Kubernetes native discovery for internal services and an API gateway pattern for external-facing services. This gives us flexibility while maintaining security boundaries. I'd be happy to discuss more specific implementation details if you're interested!
+              </div>
+              <div class="linkedin-ai-actions">
+                <button class="linkedin-ai-dismiss">Dismiss</button>
+                <button class="linkedin-ai-regenerate">Regenerate</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="demo-content" id="post-improvement">
+        <div class="linkedin-post">
+          <div class="post-header">
+            <div class="post-avatar">
+              <img src="https://randomuser.me/api/portraits/women/42.jpg" alt="User Avatar">
+            </div>
+            <div class="post-author">
+              <h4>Sarah Johnson</h4>
+              <p>Marketing Director at TechCorp</p>
+            </div>
+          </div>
+          
+          <div class="post-content">
+            <p>Just finished our quarterly marketing meeting. We discussed a lot of strategies for the upcoming quarter. Looking forward to implementing them.</p>
+          </div>
+          
+          <div class="post-actions">
+            <div class="post-action">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+              </svg>
+              Like
+            </div>
+            <div class="post-action">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              Comment
+            </div>
+            <div class="post-action">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+              </svg>
+              Share
+            </div>
+            <button class="linkedin-ai-improve-button" style="border: none; background: none; color: #0a66c2; font-weight: 600; font-size: 14px; display: flex; align-items: center; cursor: pointer; padding: 4px 8px; border-radius: 4px; margin-left: auto;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;">
+                <path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10Zm0 12.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/>
+              </svg>
+              Improve Post
+            </button>
+          </div>
+          
+          <div class="linkedin-ai-suggestions">
+            <h3>Post Improvement Suggestions</h3>
+            <div class="linkedin-ai-improvement">
+              <p><strong>1. Add specificity:</strong> Share 1-2 key strategies discussed in the meeting to provide value to your network.</p>
+              <p><strong>2. Include a question:</strong> End with a question to encourage engagement, such as "What marketing strategies are you focusing on this quarter?"</p>
+              <p><strong>3. Add relevant hashtags:</strong> Include industry-specific hashtags like #MarketingStrategy #Q3Planning #DigitalMarketing</p>
+              <p><strong>4. Incorporate a call to action:</strong> Invite connections to share their thoughts or reach out if they want to discuss similar initiatives.</p>
+              <p><strong>5. Add visual elements:</strong> Consider adding a relevant image or infographic to increase engagement.</p>
+            </div>
+            <div class="linkedin-ai-actions">
+              <button class="linkedin-ai-dismiss">Dismiss</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="testimonials" class="testimonials">
+      <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--linkedin-dark); text-align: center;">What Users Are Saying</h2>
+      
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            "This extension has completely transformed how I engage on LinkedIn. The post suggestions are incredibly relevant to my industry, and the comment replies save me so much time while still sounding authentic."
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">
+              <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Testimonial Avatar">
+            </div>
+            <div class="testimonial-info">
+              <h4>David Wilson</h4>
+              <p>Sales Director</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            "As someone who struggles with writer's block, the LinkedIn AI Assistant has been a game-changer. I'm posting more consistently and getting much better engagement on my content."
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">
+              <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Testimonial Avatar">
+            </div>
+            <div class="testimonial-info">
+              <h4>Jennifer Lee</h4>
+              <p>Content Strategist</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            "The post improvement feature is brilliant. It's like having a professional editor review my content before I publish it. My posts are now more engaging and professional."
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">
+              <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Testimonial Avatar">
+            </div>
+            <div class="testimonial-info">
+              <h4>Robert Martinez</h4>
+              <p>Startup Founder</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="faq" class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item active">
+        <div class="faq-question">
+          How does the LinkedIn AI Assistant work?
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          The LinkedIn AI Assistant is a Chrome extension that integrates with LinkedIn's interface. It uses advanced AI models to generate post suggestions, comment replies, and content improvements based on your preferences and the context of your LinkedIn activity.
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          Is my data secure when using this extension?
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Yes, your data security is our priority. The extension only processes the content you explicitly choose to enhance. Your OpenAI API key is stored locally in your browser and is never sent to our servers. All content processing happens through your own OpenAI account.
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          Do I need an OpenAI API key to use this extension?
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Yes, you need your own OpenAI API key to use the LinkedIn AI Assistant. This ensures that you have full control over your API usage and costs. You can obtain an API key from the OpenAI website.
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          Will the content generated by the AI sound like me?
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          The AI generates suggestions based on your industry and preferred tone settings. You can always edit the suggestions before posting to ensure they match your personal voice. The more you use the extension, the better you'll get at selecting and customizing suggestions that align with your style.
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          How much does it cost to use the LinkedIn AI Assistant?
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          The extension itself is free to use. However, you will need your own OpenAI API key, which involves usage-based charges from OpenAI. The extension uses GPT-3.5 Turbo by default, which is OpenAI's most cost-effective model. For most users, the cost is minimal (often just a few cents per day with regular usage).
+        </div>
+      </div>
+    </section>
+    
+    <section class="cta-section">
+      <h2>Ready to Enhance Your LinkedIn Presence?</h2>
+      <p>Download the LinkedIn AI Assistant extension today and start creating more engaging, professional content with the power of AI.</p>
+      <button class="cta-button">Download Extension</button>
+    </section>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo">
+          <img src="icons/icon.svg" alt="LinkedIn AI Assistant Logo">
+          <h3>LinkedIn AI Assistant</h3>
+        </div>
+        <p style="color: var(--linkedin-gray); font-size: 14px; max-width: 300px; margin-bottom: 24px;">
+          Enhance your LinkedIn presence with AI-powered post creation, comment replies, and content improvements.
+        </p>
+      </div>
+      
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#demo">Demo</a></li>
+            <li><a href="installation-guide.html">Installation Guide</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Email Us</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2023 LinkedIn AI Assistant. All rights reserved.</p>
+        <div class="social-links">
+          <a href="#" class="social-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Demo tabs functionality
+    const tabs = document.querySelectorAll('.demo-tab');
+    const contents = document.querySelectorAll('.demo-content');
+    
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-tab');
+        
+        // Update active tab
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // Update active content
+        contents.forEach(content => {
+          content.classList.remove('active');
+          if (content.id === target) {
+            content.classList.add('active');
+          }
+        });
+      });
+    });
+    
+    // FAQ accordion functionality
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      
+      question.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Demo buttons functionality
+    const aiButtons = document.querySelectorAll('.linkedin-ai-button');
+    const dismissButtons = document.querySelectorAll('.linkedin-ai-dismiss');
+    const regenerateButtons = document.querySelectorAll('.linkedin-ai-regenerate');
+    const improveButton = document.querySelector('.linkedin-ai-improve-button');
+    
+    // For demo purposes, we'll just toggle the visibility of suggestions
+    aiButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const suggestions = this.nextElementSibling;
+        if (suggestions && suggestions.classList.contains('linkedin-ai-suggestions')) {
+          suggestions.style.display = suggestions.style.display === 'none' ? 'block' : 'none';
+        }
+      });
+    });
+    
+    dismissButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const suggestions = this.closest('.linkedin-ai-suggestions');
+        if (suggestions) {
+          suggestions.style.display = 'none';
+        }
+      });
+    });
+    
+    regenerateButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // In a real extension, this would generate new suggestions
+        alert('In a real extension, this would generate new AI suggestions.');
+      });
+    });
+    
+    if (improveButton) {
+      improveButton.addEventListener('click', function() {
+        const suggestions = this.closest('.linkedin-post').querySelector('.linkedin-ai-suggestions');
+        if (suggestions) {
+          suggestions.style.display = suggestions.style.display === 'none' ? 'block' : 'none';
+        }
+      });
+    }
+    
+    // Download button functionality
+    const downloadButtons = document.querySelectorAll('.cta-button');
+    
+    downloadButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        window.location.href = 'installation-guide.html';
+      });
+    });
+  </script>
+</body>
+</html>
+
