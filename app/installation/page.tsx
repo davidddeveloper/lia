@@ -1,6 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
+
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, Check, Download, Key, Settings } from 'lucide-react'
+import { ArrowLeft, Download, Key } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'

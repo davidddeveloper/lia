@@ -109,9 +109,9 @@ function setupCommentReplyAssistant() {
       `
 
       aiButton.addEventListener("click", () => {
-        setInterval(() => {
-          handleCommentAssistant(input)
-        }, 1000)
+        handleCommentAssistant(input)
+        //setInterval(() => {
+        //}, 1000)
       })
 
       // Add button to actions area

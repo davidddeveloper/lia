@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, Check, ChevronDown, Github, Linkedin, Twitter } from 'lucide-react'
+import { ArrowRight, Github, Linkedin, Twitter } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { HeroDemo } from '@/components/hero-demo'

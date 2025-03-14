@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "LinkedIn AI Assistant",
+  "name": "LinkedIn Intelligent Assistant",
   "version": "1.0.0",
   "description": "AI-powered assistant for LinkedIn posts and comments",
   "permissions": ["activeTab", "storage"],

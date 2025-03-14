@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Laptop, Sparkles } from 'lucide-react'
+import { Sparkles } from 'lucide-react'
 
 export function HeroDemo() {
   const [isVisible, setIsVisible] = useState(false)
