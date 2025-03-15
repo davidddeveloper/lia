@@ -31,7 +31,7 @@ export function HeroDemo() {
       </div>
       <div className="relative aspect-video bg-muted p-4">
         <Image
-          src="/demo/linkedin-interface.jpg"
+          src="/lia-demo.png"
           alt="LinkedIn Interface"
           fill
           className="object-cover"
