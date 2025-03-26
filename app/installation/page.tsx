@@ -71,7 +71,7 @@ export default function InstallationPage() {
           <CardContent className="space-y-4">
             <div className="rounded-lg overflow-hidden border">
               <Image 
-                src="/installation/openai-api.jpg" 
+                src="/images/openai-apikey-dashboard.png" 
                 alt="OpenAI API Dashboard" 
                 width={800} 
                 height={450} 
@@ -103,7 +103,7 @@ export default function InstallationPage() {
           <CardContent className="space-y-4">
             <div className="rounded-lg overflow-hidden border">
               <Image 
-                src="/installation/extension-config.jpg" 
+                src="/images/lia-configuration-dashboard.png" 
                 alt="LIA Configuration" 
                 width={800} 
                 height={450} 
@@ -133,7 +133,7 @@ export default function InstallationPage() {
               <div className="space-y-2">
                 <div className="rounded-lg overflow-hidden border">
                   <Image 
-                    src="/installation/post-creation.jpg" 
+                    src="/images/post-creation.png" 
                     alt="Post Creation" 
                     width={250} 
                     height={200} 
@@ -148,7 +148,7 @@ export default function InstallationPage() {
               <div className="space-y-2">
                 <div className="rounded-lg overflow-hidden border">
                   <Image 
-                    src="/installation/comment-reply.jpg" 
+                    src="/images/comment-reply.png" 
                     alt="Comment Reply" 
                     width={250} 
                     height={200} 
@@ -160,7 +160,7 @@ export default function InstallationPage() {
                   Use the "AI Reply" button when responding to comments
                 </p>
               </div>
-              <div className="space-y-2">
+              {/*<div className="space-y-2">
                 <div className="rounded-lg overflow-hidden border">
                   <Image 
                     src="/installation/post-improvement.jpg" 
@@ -174,7 +174,7 @@ export default function InstallationPage() {
                 <p className="text-sm text-muted-foreground">
                   Click "Improve Post" on your existing content
                 </p>
-              </div>
+              </div>*/}
             </div>
           </CardContent>
         </Card>
