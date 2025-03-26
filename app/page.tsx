@@ -145,19 +145,19 @@ export default function Home() {
               quote="This extension has completely transformed how I engage on LinkedIn. The post suggestions are incredibly relevant to my industry, and the comment replies save me so much time while still sounding authentic."
               author="David Wilson"
               role="Sales Director"
-              avatar="/testimonials/avatar1.jpg"
+              avatar="/images/male2.jpg"
             />
             <TestimonialCard 
               quote="As someone who struggles with writer's block, LIA has been a game-changer. I'm posting more consistently and getting much better engagement on my content."
               author="Jennifer Lee"
               role="Content Strategist"
-              avatar="/testimonials/avatar2.jpg"
+              avatar="/images/female4.jpg"
             />
             <TestimonialCard 
               quote="The post improvement feature is brilliant. It's like having a professional editor review my content before I publish it. My posts are now more engaging and professional."
               author="Robert Martinez"
               role="Startup Founder"
-              avatar="/testimonials/avatar3.jpg"
+              avatar="/images/male3.jpg"
             />
           </div>
         </section>

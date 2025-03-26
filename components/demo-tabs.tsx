@@ -36,7 +36,7 @@ export function DemoTabs() {
             <div className="flex items-start gap-3">
               <div className="h-10 w-10 rounded-full overflow-hidden flex-shrink-0">
                 <Image
-                  src="/testimonials/avatar1.jpg"
+                  src="/images/female1.jpg"
                   alt="User Avatar"
                   width={40}
                   height={40}
@@ -106,7 +106,7 @@ export function DemoTabs() {
             <div className="flex items-start gap-3">
               <div className="h-10 w-10 rounded-full overflow-hidden flex-shrink-0">
                 <Image
-                  src="/testimonials/avatar3.jpg"
+                  src="/images/male1.jpg"
                   alt="User Avatar"
                   width={40}
                   height={40}
@@ -127,7 +127,7 @@ export function DemoTabs() {
                   <div className="flex items-start gap-2 mb-4">
                     <div className="h-8 w-8 rounded-full overflow-hidden flex-shrink-0">
                       <Image
-                        src="/testimonials/avatar2.jpg"
+                        src="/images/female2.jpg"
                         alt="Commenter Avatar"
                         width={32}
                         height={32}
@@ -146,7 +146,7 @@ export function DemoTabs() {
                   <div className="flex items-start gap-2">
                     <div className="h-8 w-8 rounded-full overflow-hidden flex-shrink-0">
                       <Image
-                        src="/testimonials/avatar3.jpg"
+                        src="/images/female1.jpg"
                         alt="User Avatar"
                         width={32}
                         height={32}
@@ -214,7 +214,7 @@ export function DemoTabs() {
             <div className="flex items-start gap-3">
               <div className="h-10 w-10 rounded-full overflow-hidden flex-shrink-0">
                 <Image
-                  src="/testimonials/avatar1.jpg"
+                  src="/images/female1.jpg"
                   alt="User Avatar"
                   width={40}
                   height={40}
