@@ -45,7 +45,7 @@ export default function InstallationPage() {
                 height={450} 
                 className="w-full"
               />
-              <p className="absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 z-20 font-bold text-lg">We are not on the chromwebstore yet! If you are a developer you can clone the <a href="https://github.com/davidddeveloper/lia">repo</a> on github</p>
+              <p className="absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 z-20 font-bold text-lg">We are not on the chromwebstore yet! If you are a developer you can clone the <a href="https://github.com/davidddeveloper/lia" className="underline text-blue-600">repo</a> on github</p>
             </div>
             <ol className="list-decimal pl-5 space-y-2">
               <li>Visit the <Link href="https://chrome.google.com/webstore" className="text-primary hover:underline" target="_blank">Chrome Web Store</Link></li>
