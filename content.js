@@ -1,4 +1,14 @@
 //const Input = require("postcss/lib/input")
+//const { 
+//  analyzeAndImprovePost, 
+//  setupPostImprovement, 
+//  handlePostImprovement 
+//} = require("./post-improvement.js");
+
+(() => {
+
+
+window.postImprovement.setupPostImprovement();
 
 let settings = {
   tone: "professional",
@@ -29,6 +39,8 @@ function initializeExtension() {
   setupPostCreationAssistant()
   setupCommentReplyAssistant()
 
+  //setupPostImprovement()
+
   // Set up mutation observer to detect new elements
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
@@ -36,6 +48,7 @@ function initializeExtension() {
         try {
           //setupPostCreationAssistant()
           setupCommentReplyAssistant()
+          //setupPostImprovement()
       } catch (error) {
           console.error("MutationObserver Error:", error);
       }
@@ -231,7 +244,10 @@ function getCommentContext(commentInput) {
   }
 
   // Try to get the original post content
-  const postContainer = commentInput.closest(".feed-shared-update-v2")
+  let postContainer = commentInput.closest(".feed-shared-update-v2")
+  if (postContainer == null) { // we are in the detail view
+    postContainer = commentInput.closest(".feed-shared-update-detail-viewer__content")
+  }
   const postCreatorContainer = postContainer.querySelector(".update-components-actor__meta")
   
   if (postContainer) {
@@ -342,7 +358,7 @@ async function generateCommentSuggestions(context) {
   }
 
   prompt += `. The tone should be ${settings.tone}.`
-  prompt += ` Each reply should be concise (under 100 words), thoughtful, and add value to the conversation.`
+  prompt += ` Each reply should be concise (under 100 words), thoughtful, and add value to the conversation. With no hastags.`
 
   // Call the OpenAI API
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -504,4 +520,4 @@ function insertTextIntoEditor(editor, text) {
     editor.textContent = text
   }
 }
-
+})()

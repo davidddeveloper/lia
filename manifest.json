@@ -20,7 +20,7 @@
   "content_scripts": [
     {
       "matches": ["*://*.linkedin.com/*"],
-      "js": ["content.js"],
+      "js": ["post-improvement.js", "content.js"],
       "css": ["content.css"]
     }
   ],

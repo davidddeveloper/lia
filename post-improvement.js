@@ -1,10 +1,14 @@
-const settings = {
+let settings = {
   apiKey: "", // Replace with your actual API key or fetch from storage
   industry: "Technology",
   tone: "Professional",
   postImprove: true,
 }
 
+chrome.storage.sync.get(["tone", "industry", "apiKey", "postAssist", "commentAssist", "postImprove"], (data) => {
+  settings = { ...settings, ...data }
+
+})
 // Function to analyze and improve an existing post
 async function analyzeAndImprovePost(postContent) {
   // Check if API key is available
@@ -14,6 +18,22 @@ async function analyzeAndImprovePost(postContent) {
 
   // Prepare the prompt
   const prompt = `
+    Analyze this LinkedIn post and rewrite it with improvements:
+    
+    "${postContent}"
+    
+    Rewrite it to make it more engaging, professional, and effective.
+    Focus on:
+    1. Clarity and conciseness
+    2. Professional tone
+    3. Engagement potential
+    4. Appropriate hashtags
+    5. Call to action
+    
+    Format your response as a list of specific post improvements.
+  `
+
+  {/** const prompt = `
     Analyze this LinkedIn post and suggest improvements:
     
     "${postContent}"
@@ -27,7 +47,7 @@ async function analyzeAndImprovePost(postContent) {
     5. Call to action
     
     Format your response as a list of specific suggestions.
-  `
+  ` */}
 
   // Call the OpenAI API
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -68,18 +88,21 @@ function setupPostImprovement() {
 
   // Find all published posts by the current user
   const userPosts = document.querySelectorAll(".feed-shared-update-v2")
+  console.log('---------------------->', userPosts)
 
   userPosts.forEach((post) => {
     // Check if this is the user's own post
-    const actorName = post.querySelector(".feed-shared-actor__name")
-    if (!actorName || !isCurrentUser(actorName.textContent.trim())) return
+    //const actorName = post.querySelector(".feed-shared-actor__name")
+    const actorName = post.querySelector(".update-components-actor__title")
+    console.log('---------------------->', actorName)
+    //if (!actorName || !isCurrentUser(actorName.textContent.trim())) return
 
     // Check if we've already added our button
     if (post.querySelector(".linkedin-ai-improve-button")) return
 
     // Find the post actions area
-    const actionsArea = post.querySelector(".feed-shared-social-actions")
-
+    const actionsArea = post.querySelector(".feed-shared-social-action-bar") //before feed-shared-social-actions
+    console.log('---------------------->', actionsArea)
     if (actionsArea) {
       // Create AI improvement button
       const improveButton = document.createElement("button")
@@ -124,7 +147,8 @@ function setupPostImprovement() {
 function isCurrentUser(name) {
   // This is a simplified check - in a real extension, you'd want to
   // compare with the actual logged-in user's name
-  const profileName = document.querySelector(".profile-rail-card__actor-link")
+  //const profileName = document.querySelector(".profile-rail-card__actor-link")
+  const profileName = document.querySelector(".single-line-truncate")
   if (profileName) {
     return profileName.textContent.trim() === name
   }
@@ -195,3 +219,4 @@ window.postImprovement = {
   handlePostImprovement,
 }
 
+//export { setupPostImprovement, analyzeAndImprovePost, handlePostImprovement }
